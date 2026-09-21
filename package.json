@@ -1,0 +1,26 @@
+{
+  "name": "laboration-2",
+  "version": "1.0.0",
+  "description": "Det här är ditt privata GitLab-repo för kursens andra laborationsuppgift.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AleNyl94/lab2-ts-module.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AleNyl94/lab2-ts-module/issues"
+  },
+  "homepage": "https://github.com/AleNyl94/lab2-ts-module#readme",
+  "devDependencies": {
+    "vitest": "^5.0.1"
+  }
+}

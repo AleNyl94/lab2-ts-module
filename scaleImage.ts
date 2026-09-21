@@ -7,7 +7,7 @@ import { ScaleOptions } from './types.ts'
  * @param ScaleOptions The values that the scale changes.
  * @returns
  */
-export default function shrinkImg({ height, width, scaleFactor = 0.25 }:ScaleOptions) {
+export function scaleImage({ height, width, scaleFactor = 0.25 }:ScaleOptions) {
    return {
     height: height * scaleFactor,
     width: width * scaleFactor
