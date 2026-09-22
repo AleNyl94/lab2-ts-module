@@ -8,8 +8,21 @@ import { ScaleOptions } from './types.ts'
  * @returns
  */
 export function scaleImage({ height, width, scaleFactor = 0.25 }:ScaleOptions) {
-   return {
+  // If statements to prevent illegal types and values as input to the function.
+  if (typeof height !== 'number'|| Number.isNaN(height) || height <= 0) {
+    throw new Error('Height must be a positive number')
+  }
+
+  if (typeof width !== 'number' || Number.isNaN(width) || width <= 0) {
+    throw new Error('Width must be a positive number')
+  }
+
+  if (typeof scaleFactor !== 'number' || Number.isNaN(scaleFactor) || scaleFactor <= 0 || scaleFactor > 1) {
+    throw new Error('The scale factor must be a decimal between 0 and/equal to 1')
+  }
+
+  return {
     height: height * scaleFactor,
     width: width * scaleFactor
-   }
+  }
 }
