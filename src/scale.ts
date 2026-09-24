@@ -22,9 +22,12 @@ export function scale({ height, width, scaleFactor = 0.25 }: ScaleTypes): ScaleR
     throw new Error('The scale factor must be a decimal between 0 and/equal to 1')
   }
 
+  const newHeight = Math.floor(height * scaleFactor)
+  const newWidth = Math.floor(width * scaleFactor)
+
   return {
-    height: height * scaleFactor,
-    width: width * scaleFactor,
-    scaleFactor: scaleFactor
+    height: newHeight,
+    width: newWidth,
+    scaleFactor: Number(scaleFactor.toFixed(4))
   }
 }
