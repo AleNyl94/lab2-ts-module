@@ -1,4 +1,5 @@
 import { ScaleTypes } from '../types/scaletypes.ts'
+import { ScaleResult } from '../types/scaleresult.ts'
 /* 
  * This is the function is  shrinking an image down with the
  * procentage chosen by the user. If no choice is made,
@@ -7,7 +8,7 @@ import { ScaleTypes } from '../types/scaletypes.ts'
  * @param ScaleOptions The values that the scale changes.
  * @returns - Scaled down picture
  */
-export function scale({ height, width, scaleFactor = 0.25 }:ScaleTypes) {
+export function scale({ height, width, scaleFactor = 0.25 }: ScaleTypes): ScaleResult {
   // If statements to prevent illegal types and values as input to the function.
   if (typeof height !== 'number'|| Number.isNaN(height) || height <= 0) {
     throw new Error('Height must be a positive number')
@@ -23,6 +24,7 @@ export function scale({ height, width, scaleFactor = 0.25 }:ScaleTypes) {
 
   return {
     height: height * scaleFactor,
-    width: width * scaleFactor
+    width: width * scaleFactor,
+    scaleFactor: scaleFactor
   }
 }
