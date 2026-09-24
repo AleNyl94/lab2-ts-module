@@ -5,7 +5,7 @@ import { ScaleTypes } from '../types/scaletypes.ts'
  * it is automatically set to 25%.
  * 
  * @param ScaleOptions The values that the scale changes.
- * @returns
+ * @returns - Scaled down picture
  */
 export function scale({ height, width, scaleFactor = 0.25 }:ScaleTypes) {
   // If statements to prevent illegal types and values as input to the function.

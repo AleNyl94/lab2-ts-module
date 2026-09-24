@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "docs": "typedoc --entryPointStrategy expand --entryPoints src"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/AleNyl94/lab2-ts-module#readme",
   "devDependencies": {
+    "typedoc": "^0.28.20",
     "vitest": "^5.0.1"
   },
   "dependencies": {
