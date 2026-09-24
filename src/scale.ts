@@ -1,13 +1,13 @@
-import { ScaleOptions } from '../types.ts'
+import { ScaleTypes } from '../types/scaletypes.ts'
 /* 
- * This is the module shrinking an image down with the
+ * This is the function is  shrinking an image down with the
  * procentage chosen by the user. If no choice is made,
  * it is automatically set to 25%.
  * 
  * @param ScaleOptions The values that the scale changes.
  * @returns
  */
-export function scale({ height, width, scaleFactor = 0.25 }:ScaleOptions) {
+export function scale({ height, width, scaleFactor = 0.25 }:ScaleTypes) {
   // If statements to prevent illegal types and values as input to the function.
   if (typeof height !== 'number'|| Number.isNaN(height) || height <= 0) {
     throw new Error('Height must be a positive number')
