@@ -27,7 +27,7 @@ export function scaleToRatio({
   }
   // Bilden är för smal
   if (targetRatio < currentRatio) {
-    const newWidth = Math.floor(height / targetRatio)
+    const newWidth = Math.floor(height * targetRatio)
     return {
       height,
       width: newWidth,
@@ -35,11 +35,9 @@ export function scaleToRatio({
     }
   }
   // Ration är identiska
-  if (targetRatio === currentRatio) {
-    return {
-      height,
-      width,
-      aspectRatio: targetRatio
-    }
+  return {
+    height,
+    width,
+    aspectRatio: targetRatio
   }
 }
