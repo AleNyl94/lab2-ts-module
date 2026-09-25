@@ -6,7 +6,8 @@ import { ScaleResult } from '../types/scaleresult.ts'
  * it is automatically set to 25%.
  * 
  * @param ScaleOptions The values that the scale changes.
- * @returns - Scaled down picture
+ * @returns ScaleResult - Scaled down picture with new height and width as
+ * well as the scaling factor.
  */
 export function scale({ height, width, scaleFactor = 0.25 }: ScaleTypes): ScaleResult {
   // If statements to prevent illegal types and values as input to the function.
