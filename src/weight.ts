@@ -10,7 +10,7 @@ import { WeightResult } from "../types/weightresult"
  * for the input-picture.
  * @returns WeightResult - The picture size in bytes, kilobytes and megabytes.
  */
-export function weight({ height, width, bytesPerPixel = 4}: WeightTypes): WeightResult {
+export function weight({ height, width, bytesPerPixel = 4 }: WeightTypes): WeightResult {
   if ( height <= 0 || width <= 0 || bytesPerPixel <= 0) {
     throw new Error('All parameters must be positive')
   }

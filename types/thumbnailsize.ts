@@ -1,0 +1,1 @@
+export type thumbnailSizes = 'small' | 'medium' | 'large'

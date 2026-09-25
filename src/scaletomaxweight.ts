@@ -25,7 +25,7 @@ export function scaleToMaxWeight({ width, height, maxMegaBytes, bytesPerPixel = 
   const targetScaleFactor = Math.sqrt(relation)
 
   const scaledImage = scale({ width, height, scaleFactor: targetScaleFactor})
-  const scaledImageWeight = weight({ height: scaledImage.height, width: scaledImage.width, bytesPerPixel })
+  const scaledImageWeight = weight({ height: scaledImage.height, width: scaledImage.width, bytesPerPixel: 4 })
 
   return {
     height: scaledImage.height,
