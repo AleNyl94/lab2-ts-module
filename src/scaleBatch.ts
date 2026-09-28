@@ -8,7 +8,7 @@ export function scaleBatch({ targetWeight, images} :
   ScaleBatchTypes): 
   ScaleBatchResult {
   
-  if (images.length < 1 || images == undefined) {
+  if (images.length < 1 || !Array.isArray(images) || images == undefined) {
     throw new Error('No images found')
   }
   let totalMemory = 0

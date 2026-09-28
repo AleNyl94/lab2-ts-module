@@ -6,11 +6,11 @@
  * @returns - The greatest common divisor between the two.
  */
 export function greatestCommonDivisor(a: number, b: number) {
-  a = Math.abs(Math.round(a))
-  b = Math.abs(Math.round(b))
   if (a < 0 || b < 0) {
     throw new Error('Numbers must be positive')
   }
+  a = Math.abs(Math.round(a))
+  b = Math.abs(Math.round(b))
   if (b === 0) {
     return a
   } else {

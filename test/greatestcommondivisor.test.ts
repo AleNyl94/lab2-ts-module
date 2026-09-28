@@ -6,4 +6,7 @@ describe('Greatest common divisor', () => {
     const fraction = greatestCommonDivisor(10, 5)
     expect(fraction).toEqual(5)
   })
+  it('Should throw error of numbers are negative', () => {
+    expect(() => greatestCommonDivisor(-1, -2)).toThrow('Numbers must be positive')
+  })
 })
