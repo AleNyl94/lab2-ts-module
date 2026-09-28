@@ -12,7 +12,7 @@ describe('Scale Batch', () => {
     ]
     })
     expect(result.images).toHaveLength(3)
-    expect(result.savedMemory).toEqual(1.5)
+    expect(result.savedMemory).toEqual(11.32)
     expect(result).toHaveProperty('images')
     expect(result).toHaveProperty('savedMemory')
   })

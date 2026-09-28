@@ -39,8 +39,7 @@ Test-files are found in [test-folder](./test/) for following functions:
 |      [Get Image Details](./src/getimagedetails.ts), should throw an error of the measurements are invalid.            |       [Vitest](./test/getimagedetails.test.ts)              |    Passed ✅     |
 |        [Greatest Common Divisor](./src/greatestcommondivisor.ts), sends back the greatest common divisor between two numbers.           |    [Vitest](./test/greatestcommondivisor.test.ts)                 |      Passed ✅   |
 |         [Greatest Common Divisor](./src/greatestcommondivisor.ts), throws error of the parameters are negative numbers.          |       [Vitest](./test/greatestcommondivisor.test.ts)              |  Passed ✅        |
-|     [Greatest Common Divisor](./src/greatestcommondivisor.ts), sends back the first number if the second one is 0.              |        [Vitest](./test/greatestcommondivisor.test.ts)            |   Failed ⛔, error in test-code.      |
-|     [Scale To Ratio](./src/scaletoratio.ts), sends the expected outdata based off the measurements and targeted ratio.             |           [Vitest](./test/scaletoratio.test.ts)         |   Failed ⛔, forgot to round off the aspect-ratio.      |
-
+|     [Greatest Common Divisor](./src/greatestcommondivisor.ts), sends back the first number if the second one is 0.              |        [Vitest](./test/greatestcommondivisor.test.ts)            |   Passed ✅        |
+|     [Scale To Ratio](./src/scaletoratio.ts), sends the expected outdata based off the measurements and targeted ratio.             |           [Vitest](./test/scaletoratio.test.ts)         |   Passed ✅   
 |                   |                    |         |
 |                   |                    |         |

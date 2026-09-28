@@ -10,6 +10,6 @@ describe('Greatest common divisor', () => {
     expect(() => greatestCommonDivisor(-1, -2)).toThrow('Numbers must be positive')
   })
   it('Sends back the first parameter if the second one is 0', () => {
-    expect(() => greatestCommonDivisor(1, 0)).toEqual(1)
+    expect(greatestCommonDivisor(1, 0)).toEqual(1)
   })
 })
