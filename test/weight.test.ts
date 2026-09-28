@@ -11,7 +11,7 @@ describe('weight', () => {
     const result = weight({ width: 1024, height: 1024, bytesPerPixel: 4})
     expect(result).toEqual({ bytes: 4194304, kilobytes: 4096, megabytes: 4 })
   }),
-  it('Should throw an error if input parameters are invalid', () => {
+  it('Should throw an error if measurements are invalid', () => {
   expect(() => weight({ width: -1024, height: 1024, bytesPerPixel: 4 })).toThrow()
   })
 })
