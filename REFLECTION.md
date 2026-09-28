@@ -1,16 +1,12 @@
 # Reflektion: Laboration 2 – Skriv en modul, inte en app
 
-<!--
-    Komplettera filen och lämna in den tillsammans med din Merge Request.
-    Du får skriva på svenska eller engelska.
--->
 
 ## 1. Namngivning
 
 | Namn | Förklaring | Reflektion och regler från Clean Code |
 | ---- | ---------- | -------------------------------------- |
-|      |            |                                         |
-|      |            |                                         |
+|   greatestCommonDivisor   |       Funktion son räknar ut den största gemensamma nämnaren.     |              Som beskrivs i kapitel 3 så tänkte jag att funktionen bör avslöja vad den gör och använder därför ett längre namn istället för något smidigare som "gcd" eller liknande.                           |
+|    savedMemory  |    Variabel i `scaleBatch` som lagrar sparad minnesmängd.        | Namnet är beskrivande och sökbart i koden, till skillnad från vaga namn som diff eller temp.                                         |
 |      |            |                                         |
 |      |            |                                         |
 |      |            |                                         |
