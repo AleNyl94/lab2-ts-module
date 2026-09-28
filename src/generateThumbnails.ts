@@ -4,6 +4,9 @@ import { scale } from './scale'
 
 export function generateThumbnails({ height, width, size }: GenerateThumbnailsType): 
 GenerateThumbnailsResult {
+  if( height <= 0 || width <= 0) {
+    throw new Error('Dimensions must be positive')
+  }
 
   let aspectWidth = 0
   switch (size) {

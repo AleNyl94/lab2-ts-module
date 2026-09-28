@@ -16,4 +16,7 @@ describe('Get image-details', () => {
     }
     })
   })
+  it('Should throw error if invalid dimensions', () => {
+    expect(() => getImageDetails({width: -1, height: -1, targetDpi: -1})).toThrow('Invalid dimensions or DPI')
+  })
 })

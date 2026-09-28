@@ -5,6 +5,9 @@ import { greatestCommonDivisor } from "./greatestcommondivisor"
 export function getImageDetails({ width, height, targetDpi }: 
   GetImageDetailsType):
   GetImageDetailsResult {
+  if (width <= 0 || height <= 0 || targetDpi <= 0) {
+    throw new Error('Invalid dimensions or DPI')
+  }
   const commonDivisor = greatestCommonDivisor( width, height )
   const formatCheckWidth = width / commonDivisor
   const formatCheckHeight = height / commonDivisor
