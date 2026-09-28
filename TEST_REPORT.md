@@ -30,7 +30,7 @@ Test-files are found in [test-folder](./test/) for following functions:
 |      [Scale](./src/scale.ts), throws an error  if the measurements are invalid.           |          [Vitest](./test/scale.test.ts)            |    Passed ✅       |
 |         [Weight](./src/weight.ts), calculating the size according to the measurements.       |      [Vitest](./test/weight.test.ts)             |    Passed ✅     |
 |        [Weight](./src/weight.ts), throws an error  if the measurements are invalid.          |          [Vitest](./test/weight.test.ts)          |     Passed ✅     |
-|      [Scale Batch](./src/scalebatch.ts), tests the output containing the correct information, images scaled down and how much memory is saved in total.           |        [Vitest](./test/scalebatch.test.ts)      |      Failed ⛔, expected wrong number in savedMemory.  |
+|      [Scale Batch](./src/scalebatch.ts), tests the output containing the correct information, images scaled down and how much memory is saved in total.           |        [Vitest](./test/scalebatch.test.ts)      |      Passed ✅  |
 |       [Scale Batch](./src/scalebatch.ts), throws an error if the images-array is empty.           |        [Vitest](./test/scalebatch.test.ts)              |   Passed ✅       |
 |        [Generate Thumbnails](./src/generatethumbnails.ts), generates the pictures with correct sizes depending on the choices of size.           |          [Vitest](./test/generatethumbnails.test.ts)           |     Passed ✅    |
 |     [Generate Thumbnails](./src/generatethumbnails.ts), throws error if the size chosen is not valid              |       [Vitest](./test/generatethumbnails.test.ts)             |   Passed ✅      |
@@ -41,5 +41,6 @@ Test-files are found in [test-folder](./test/) for following functions:
 |         [Greatest Common Divisor](./src/greatestcommondivisor.ts), throws error of the parameters are negative numbers.          |       [Vitest](./test/greatestcommondivisor.test.ts)              |  Passed ✅        |
 |     [Greatest Common Divisor](./src/greatestcommondivisor.ts), sends back the first number if the second one is 0.              |        [Vitest](./test/greatestcommondivisor.test.ts)            |   Passed ✅        |
 |     [Scale To Ratio](./src/scaletoratio.ts), sends the expected outdata based off the measurements and targeted ratio.             |           [Vitest](./test/scaletoratio.test.ts)         |   Passed ✅   
-|                   |                    |         |
-|                   |                    |         |
+|    [Scale To Ratio](./src/scaletoratio.ts), throws error if parameters are empty               |           [Vitest](./test/scaletoratio.test.ts)           |   Passed ✅       |
+|     [Scale To Max Weight](./src/scaletomaxweight.ts), scaling down the picture under the desired max size.              |       [Vitest](./test/scaletomaxweight.test.ts)             |   Passed ✅       |
+|      [Scale To Max Weight](./src/scaletomaxweight.ts), throws error if measurements are 0 or less.             |        [Vitest](./test/scaletomaxweight.test.ts)            |    Passed ✅     |
