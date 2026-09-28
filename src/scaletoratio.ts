@@ -11,7 +11,7 @@ export function scaleToRatio({
   }: 
   ScaleToRatioTypes) : ScaleToRatioResult {
   if (width <= 0 || height <= 0 || ratioHeight <= 0 || ratioWidth <= 0) {
-    throw new Error('Parameters must be a positive number')
+    throw new Error('Measurements must be positive')
   }
   const currentRatio = height / width
   const targetRatio =  ratioWidth / ratioHeight
@@ -22,7 +22,7 @@ export function scaleToRatio({
     return {
       height: newHeight,
       width,
-      aspectRatio: targetRatio
+      aspectRatio: Number(targetRatio.toFixed(2))
     } 
   }
   // Bilden är för smal
@@ -31,13 +31,13 @@ export function scaleToRatio({
     return {
       height,
       width: newWidth,
-      aspectRatio: targetRatio
+      aspectRatio: Number(targetRatio.toFixed(2))
     }
   }
   // Ration är identiska
   return {
     height,
     width,
-    aspectRatio: targetRatio
+    aspectRatio: Number(targetRatio.toFixed(2))
   }
 }
