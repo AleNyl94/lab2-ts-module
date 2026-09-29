@@ -3,7 +3,6 @@ import { ScaleToMaxWeightResult } from '../types/scaletomaxweightresult'
 import { scale } from './scale'
 import { weight } from './weight'
 
-
 export function scaleToMaxWeight({ width, height, maxMegaBytes, bytesPerPixel = 4 }: 
   ScaleToMaxWeightTypes): ScaleToMaxWeightResult {
   if (width <= 0 || height <= 0 || maxMegaBytes <= 0) {
