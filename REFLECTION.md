@@ -41,7 +41,12 @@ om andra skulle förstå sålänge jag visste vad det var eller hur exakt namnet
 *Beskriv dina erfarenheter av att arbeta med din egen kodkvalitet i den här laborationen. Använd
 vedertagna begrepp. (Cirka en halv sida.)*
 
-Svar:
+Svar: Att arbeta med kodkvalitet i den här uppgiften var ibland enkelt, men ju fler funktioner ju mer komplext upplevde jag det. Till exempel så kändes principen om enskilt ansvar för funktioner (SRP) som en vettig princip där funktionerna bara hade sina egna uppgifter och behandlade inga andra saker än det ansvarsområde som det givits. Efter 2-3 funktioner kändes det däremot som att de gjorde lite liknande saker och när funktionerna började använda varandra (t ex. `scaleToMaxWeight` som använder både `scale` och `weight`) så undrade jag hur pass "självständiga" den egentligen ska vara. Men för att den ska kunna göra sitt arbete måste den importera funktionerna eller skriva dem igen, vilket då hade brutit mot DRY(Don't Repeat Yourself)-principen, så jag valde det första alternativet.
+
+Tidigare hade jag också inkluderat en sak som `greatestCommonDivisor` i `scaleToRatio`, för att dess användingsområde är sammankopplat med den funktionen. Dock, så är Single Responsibility Principle tydlig att funktioner ska hållas rena så därför bröt jag ut den till sin egen funktion. Även om funktionen hålls relativt kort, synliggjordes värdet av att eftersträva "One Level of Abstraction per Function" för att förenkla framtida refaktorisering.
+
+Utöver funktionernas struktur var arbetet med guard clauses och felhantering för indata och för att säkra begripliga och överskådliga resultat, speciellt när funktionerna använder varandra (runda av decimaler i `weight` till exempel som sen används i `scaleToMaxWeight`) en viktig del i att höja kodkvaliteten. Genom att tillämpa principen om att "falla snabbt" (fail-fast) placerades indatavalidering högst upp i funktionerna innan några beräkningar utfördes. Tillsammans med enhetstester i Vitest, där både framgångsrika flöden (happy path) och kantfall (edge cases) verifierades, skapades en mer robust och förutsägbar kodbas.
+
 
 ## 4. Att skriva en modul
 
