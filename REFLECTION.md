@@ -20,9 +20,9 @@ Svar: Ja jag tänkte mycket på det när jag gjorde den här uppgiften, särskil
 
 | Metodnamn | Länk eller kod | Antal rader (ej ws) | Reflektion |
 | --------- | --------------- | -------------------- | ---------- |
-|       generateThumbnails    |  [generateThumbnails](./src/generatethumbnails.ts)               |  31                     |   Använde switch-sats, ganska tydlig kod.         |
+|       generateThumbnails    |  [generateThumbnails](./src/generatethumbnails.ts)               |  31                     |   Beskriver exakt det den gör, kanske inte per se "genererar" utan mer transformerar.         |
 |        getImageDetails   |     [getImageDetails](./src/getimagedetails.ts)            | 33                      |      Många variabler, men ganska simpel.      |
-|     greatestCommonDivisor      |    [greatestCommonDivisor](./src/greatestcommondivisor.ts)             |       19                |     Använde a och b som namn på parametrar, men är ganska vanligt i matematiska formler. Kunde ha hetat något mer beskrivande.        |
+|     greatestCommonDivisor      |    [greatestCommonDivisor](./src/greatestcommondivisor.ts)             |       19                |     Use Solution Domain names, beskriver vad den ska returnera och det är inte jättekomplext att förstå vilket problem den ska lösa.        |
 |       scale    |      [scale](./src/scale.ts)           |          26             |      Försökte hålla isär begreppen med nya och gamla mått genom att inte förkorta för mycket.     |
 |       scaleBatch    |     [scaleBatch](./src/scalebatch.ts)            |                36       |    Kändes lite rörig med variabler blandat med arrayer som innehåller objekt som har blivit vägda men ska vägas igen etc. eller förminskade, men jag känner att jag gjorde det begripligt.        |
 |    scaleToMaxWeight       |  [scaleToMaxWeight](./src/scaletomaxweight.ts)               |              30          |       Även där lätt att det blir rörigt med många varianter av enheter och tempus, kanske hade ja kunnat vara tydligare med att vikten kommuniceras i megabyte.     |
@@ -53,13 +53,18 @@ Utöver funktionernas struktur var arbetet med guard clauses och felhantering f�
 *Hur var det att skriva kod för andra programmerare istället för en app med egna slutanvändare?
 Vad blev din USP, och ändrades den under arbetets gång?*
 
-Svar:
+Svar: Det var en nervös känsla, fick öva på det under workshop #1 men det är ändå något som jag vet 
+är svårt att förutse hur förståeligt något blir för andra. Även fast man följer reglerna för struktur och ordning så måste ändå dessa regler tolkas individuellt till en viss del och det ger lite differenser som initialt kan skapa förvirring. Jag har varit med om det under t ex. användartester från min UX-utbildning, där även fast appar skapas visuellt med design-regler men om användaren inte ges mycket kontext för att bilda sina egna uppfattningar och försöka använda den utan instruktioner så kan bilden av vad saker är och gör skilja sig väsentligt från den inifrån teamets.
+
+Min USP var att skapa en modul som redigerar och skalar om bilder proportioneligt efter bildförhållanden eller storlekskrav, det var något jag verkligen höll hårt i och ledde till att vissa funktioner kändes lite forcerade i slutändan men jag hade inte jättemycket kreativitet den här veckan så jag lade fokus på att skriva ren, fin kod istället.
 
 ## 5. Testning
 
 *Vilket av testalternativen valde du, och varför? Vad var svårast att testa i din modul?*
 
 Svar:
+
+Jag gjorde enhetstester i `Vitest`, eftersom funktionerna ska fungera för sig själva så ska de också testas individuellt och det var det bästa enligt mig för att säkerställa att funktionerna gav rätt och förväntad output. Det var också något jag gjorde relativt nyligen i våras så det kändes nära till hands samt gick fort att få resultaten.
 
 ## 6. AI-samarbete
 
@@ -69,4 +74,4 @@ snarare än ett enkelt program? Var det till exempel till mer eller mindre hjäl
 testning eller kodkvalitetsreflektionerna, eller valde du bort AI i delar där du använde det förra
 gången?*
 
-Svar:
+Svar: Ja, jag använde Google Gemini för att ge mig matematiska formler och lösa vissa uträkningar men bad den genomgående att inte generera kod för att jag verkligen ville bygga den helt själv.

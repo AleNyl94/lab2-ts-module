@@ -1,26 +1,44 @@
-# Laboration 2 – Skriv en modul, inte en app
+# Image Processing Module
 
-Det här är ditt privata GitLab-repo för kursens andra laborationsuppgift.
+A TypeScript utility library for scaling, resizing, and calculating metadata for images.
 
-Fullständig uppgiftsbeskrivning, deadline, bedömningskriterier och regler finns på
-[kurssidan för Laboration 2](https://coursepress.lnu.se/kurser/introduktion-till-mjukvarukvalitet/examinationsuppgifter/laboration-2/) 
-— det här repot är bara din arbetsyta för inlämningen, och innehåller inte din modul-kod. Den kod
-du skriver för uppgiften ska istället versionshanteras i ett separat, publikt repo på GitHub
-(obligatoriskt från och med den här laborationen).
+## Installation
 
-## Kom igång
+```bash
+npm install
 
-1. Skriv din modul och versionshantera den med Git mot ett publikt repo på GitHub.
-2. Flytta `TEST_REPORT.md` från det här repot till roten av ditt GitHub-repo, komplettera den där
-   (på engelska — den ska följa med modulkoden), och committa den tillsammans med koden.
-3. Committa och pusha löpande.
-4. Komplettera `REFLECTION.md` i det här repots rotkatalog.
-5. Öppna en Merge Request från `main` till `lnu/submit` i det här repot, och fyll i
-   inlämningsrapporten i MR-beskrivningen — inklusive länken till ditt GitHub-repo.
+````
 
-## Filer i repot
+## Usage & API
 
-- `TEST_REPORT.md` — mall för din testrapport. Den ska **inte** lämnas kvar här: flytta den till
-  roten av ditt GitHub-repo och komplettera den där innan du pushar koden.
-- `REFLECTION.md` — dina kodkvalitetstabeller och reflektioner. Komplettera den här, i det här
-  repot, innan du öppnar din Merge Request.
+- `greatestCommonDivisor(a, b)`
+Calculates the greatest common divisor between two numbers.
+- `generateThumbnails({ height, width, size })`
+Generates scaled thumbnail dimensions based on predefined size profiles (small, medium, large).
+- `getImageDetails({ height, width, targetDpi })`
+Calculates image metadata such as aspect ratio, print size in cm, and HighDPI flags.
+- `scale({ height, width, scaleFactor? })`
+Scales the image down without breaking its proportions, if no scaleFactor is given it scales it down by 1/4.
+- `scaleBatch({ targetWeight, images})`
+Scales down an array of images to save memory, returns the scaled images and how much memory is saved in a megabytes-format.
+- `scaleToMaxWeight({ width, height, maxMegaBytes, bytesPerPixel = 4 })`
+Scales down a picture to desired size, if no bytesPerPixel is given it is automatically set to 4. 
+- `scaleToRatio({ 
+  height, 
+  width, 
+  aspectRatio: 
+  { height: ratioHeight, 
+    width: ratioWidth 
+    } 
+  })`
+  Scales a picture to a given ratio, for example if a image is desired to be in 16:9 it is scaled to that size to fit the format.
+- `weight({ height, width, bytesPerPixel = 4 })`
+Weighs a picture by it's measurements, returns the size of the picture in bytes, kilobytes and megabytes.
+
+## Testing
+
+Test the modules functions with command:
+```bash
+npm test
+
+````
