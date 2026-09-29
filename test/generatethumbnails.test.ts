@@ -14,7 +14,7 @@ describe('Generating thumbnails', () => {
     expect(largePicture).toEqual({ height: 600, width: 600 })
   })
   it('Should throw an error because of unknown size', () => {
-    expect(() => generateThumbnails({ height: 200, width: 200, size: 'mega-big' as any })).toThrow('Size not allowed')
+    expect(() => generateThumbnails({ height: 200, width: 200, size: 'mega-big' as unknown as Parameters<typeof generateThumbnails>[0]['size'] })).toThrow('Size not allowed')
   })
   it('Should throw an error because of invalid dimensions', () => {
     expect(() => generateThumbnails({ height: -1, width: -1, size: 'small'})).toThrow('Dimensions must be positive')
