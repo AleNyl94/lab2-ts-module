@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { scaleBatch } from '../src/scaleBatch'
 
+/**
+ * Tests the scaleBatch-function, the if-statement and that the output is correct. 
+ */
 describe('Scale Batch', () => {
   it('Should present the new images sizes along with the amount of saved memory in total', () => {
   const result = scaleBatch({

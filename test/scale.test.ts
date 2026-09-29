@@ -1,12 +1,15 @@
 import { describe, it, expect } from 'vitest'
 import { scale } from '../src/scale.ts'
 
+/**
+ * Tests the scale-function and its if-statements.
+ */
 describe('scale', () => {
   // Tests the default scale.
   it('Should if no user input is made automatically scale the image down to 1/4 of its dimension', () => {
     const result = scale({ width: 800, height: 400 })
     expect(result).toEqual({ width: 200, height: 100, scaleFactor: 0.25 })
-  }),
+  })
   // Tests the error thrown if the number is illegal.
   it('Should throw the error for negative height', () => {
     expect(() =>

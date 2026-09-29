@@ -1,9 +1,9 @@
-/*
+/**
  * Function to find the greatest common divisor between two numbers.
  *
  * @param a - The first number.
  * @param b - The second number.
- * @returns - The greatest common divisor between the two.
+ * @returns The greatest common divisor between the two.
  */
 export function greatestCommonDivisor(a: number, b: number) {
   if (a < 0 || b < 0) {

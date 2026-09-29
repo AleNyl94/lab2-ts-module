@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { getImageDetails } from '../src/getImageDetails'
 
+/**
+ * Test for the getImageDetails-function, testing valid and invald input.
+ */
 describe('Get image-details', () => {
   it('Should return the correct details from the image', () => {
   const result = getImageDetails({ width: 1600, height: 900, targetDpi: 300 })

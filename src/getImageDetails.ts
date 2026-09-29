@@ -2,6 +2,16 @@ import { GetImageDetailsResult } from "../types/getimagedetailsresult"
 import { GetImageDetailsType } from "../types/getimagedetailstype"
 import { greatestCommonDivisor } from "./greatestcommondivisor"
 
+/**
+ * Function to analyze and give more details about a picture.
+ * 
+ * @param width - The current width of the picture.
+ * @param height - The current height of the picture.
+ * @param targetDpi - The wished DPI for the picture, 
+ * which is a form of picture-quality measurement.
+ * @returns The details of the picture, if it fits any ratio, if it has high DPI and the 
+ * measurements in centimeters.
+ */
 export function getImageDetails({ width, height, targetDpi }: 
   GetImageDetailsType):
   GetImageDetailsResult {

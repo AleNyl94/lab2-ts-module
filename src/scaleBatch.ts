@@ -4,6 +4,14 @@ import { weight } from './weight'
 import { scaleToMaxWeight } from './scaletomaxweight'
 import { ScaleToMaxWeightResult } from '../types/scaletomaxweightresult'
 
+/**
+ * Function to scale down and resize pictures to save memory.
+ * 
+ * @param targetWeight - The max limit that the picture can weigh.
+ * @param images - An array of pictures. 
+ * @returns The new scaled down pictures that is as big as it can be below the 
+ * size-limit, along with the total memory saved in megabytes.
+ */
 export function scaleBatch({ targetWeight, images} : 
   ScaleBatchTypes): 
   ScaleBatchResult {

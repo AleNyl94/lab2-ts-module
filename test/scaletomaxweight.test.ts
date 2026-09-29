@@ -1,6 +1,10 @@
 import { describe, it, expect } from 'vitest'
 import { scaleToMaxWeight } from '../src/scaletomaxweight'
 
+/**
+ * Tests the scaleToMaxWeight-function, that the image is scaled correctly to under the size-limit
+ * and that the if-statement throws an error.
+ */
 describe('Should scale the image down to close to wanted weight, never over', () => {
   it('Should scale down the picture to below the desired limit', () => {
     const result = scaleToMaxWeight({ width: 1000, height: 1000, maxMegaBytes: 2, bytesPerPixel: 4 })

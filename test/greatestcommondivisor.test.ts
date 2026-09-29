@@ -1,6 +1,10 @@
 import { describe, it, expect } from 'vitest'
 import { greatestCommonDivisor } from '../src/greatestcommondivisor'
 
+/**
+ * Tests the greatestCommonDivisor-function, testing all the 
+ * if-statements and that the output is correct.
+ */
 describe('Greatest common divisor', () => {
   it('Tests if the correct common divisor is found', () => {
     const fraction = greatestCommonDivisor(10, 5)

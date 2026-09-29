@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { scaleToRatio } from '../src/scaletoratio'
 
+/**
+ * Test for the scaleToRatio-function, that it works for valid and invalid input.
+ */
 describe('Scales the image to the ratio that is chosen', () => {
   it('Should return a image remade for the chosen format', () => {
     const result = scaleToRatio({ 

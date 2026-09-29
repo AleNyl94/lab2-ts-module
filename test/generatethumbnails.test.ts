@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { generateThumbnails } from '../src/generateThumbnails'
 
+/**
+ * Test for the generateThumbnails-function testing valid and invalid input. 
+ */
 describe('Generating thumbnails', () => {
   it('Should return the picture with chosen size and correct measurements ', () => {
     const smallPicture = generateThumbnails({ height: 333, width: 555, size: 'small'})

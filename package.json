@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "vitest run",
-    "docs": "typedoc --entryPointStrategy expand --entryPoints src"
+    "docs": "typedoc --entryPointStrategy expand --entryPoints src",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -22,10 +23,10 @@
   },
   "homepage": "https://github.com/AleNyl94/lab2-ts-module#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.71.0",
+    "@typescript-eslint/parser": "^8.71.0",
+    "eslint": "^10.11.0",
     "typedoc": "^0.28.20",
     "vitest": "^5.0.1"
-  },
-  "dependencies": {
-    "eslint": "^10.11.0"
   }
 }

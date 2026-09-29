@@ -41,4 +41,8 @@ Test the modules functions with command:
 ```bash
 npm test
 
-````
+```
+
+## Documentation Links
+- [Test Reports](./TEST_REPORT.md)
+- [Reflection](./REFLECTION.md)

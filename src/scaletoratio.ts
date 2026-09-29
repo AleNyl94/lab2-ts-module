@@ -1,6 +1,14 @@
 import { ScaleToRatioResult } from "../types/scaletoratioresult"
 import { ScaleToRatioTypes } from "../types/scaletoratiotypes"
 
+/**
+ * Scales a picture to fit a chosen ratio.
+ *
+ * @param height - The pictures current height.
+ * @param width - The pictures current width.
+ * @param aspectRatio { height, width } - The desired ratio.
+ * @returns The new measurements and the scale-factor.
+ */
 export function scaleToRatio({ 
   height, 
   width, 

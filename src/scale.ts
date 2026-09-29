@@ -1,12 +1,15 @@
 import { ScaleTypes } from '../types/scaletypes.ts'
 import { ScaleResult } from '../types/scaleresult.ts'
-/* 
+/**
  * This is the function is  shrinking an image down with the
  * procentage chosen by the user. If no choice is made,
  * it is automatically set to 25%.
  * 
- * @param ScaleOptions The values that the scale changes.
- * @returns ScaleResult - Scaled down picture with new height and width as
+ * @param height - The current height of the picture.
+ * @param width - The current width of the picture.
+ * @param scaleFactor - The desired factor in which to scale the picture down. 
+ * 25% is default if no other input is given.
+ * @returns Scaled down picture with new height and width as
  * well as the scaling factor.
  */
 export function scale({ height, width, scaleFactor = 0.25 }: ScaleTypes): ScaleResult {
