@@ -2,7 +2,7 @@
   "name": "laboration-2",
   "version": "1.0.0",
   "description": "Det här är ditt privata GitLab-repo för kursens andra laborationsuppgift.",
-  "main": "index.js",
+  "main": "index.ts",
   "directories": {
     "test": "test"
   },

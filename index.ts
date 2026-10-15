@@ -1,0 +1,8 @@
+export { generateThumbnails } from "./src/generateThumbnails"
+export { getImageDetails } from "./src/getimagedetails"
+export { greatestCommonDivisor } from "./src/greatestcommondivisor"
+export { scale } from "./src/scale"
+export { scaleBatch } from "./src/scaleBatch"
+export { scaleToMaxWeight } from "./src/scaletomaxweight"
+export { scaleToRatio } from "./src/scaletoratio"
+export { weight } from "./src/weight"
