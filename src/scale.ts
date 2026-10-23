@@ -1,5 +1,5 @@
-import { ScaleTypes } from '../types/scaletypes.ts'
 import { ScaleResult } from '../types/scaleresult.ts'
+import { Validator } from './functions/validation.ts';
 /**
  * This is the function is  shrinking an image down with the
  * procentage chosen by the user. If no choice is made,
@@ -12,26 +12,30 @@ import { ScaleResult } from '../types/scaleresult.ts'
  * @returns Scaled down picture with new height and width as
  * well as the scaling factor.
  */
-export function scale({ height, width, scaleFactor = 0.25 }: ScaleTypes): ScaleResult {
-  // If statements to prevent illegal types and values as input to the function.
-  if (typeof height !== 'number'|| Number.isNaN(height) || height <= 0) {
-    throw new Error('Height must be a positive number')
+export class scale {
+  private width: number;
+  private height: number;
+  private scaleFactor: number;
+  private validator: Validator;
+
+  constructor(width: number, height: number, scaleFactor: number) {
+    this.validator = new Validator
+    this.validator.validateHeight(height); 
+    this.validator.validateWidth(width);
+    this.validator.validateScaleFactor(scaleFactor);
+    this.height = height;
+    this.width = width;
+    this.scaleFactor = scaleFactor;
   }
 
-  if (typeof width !== 'number' || Number.isNaN(width) || width <= 0) {
-    throw new Error('Width must be a positive number')
-  }
+  public run(): ScaleResult {
+    const newHeight = Math.floor(this.height * this.scaleFactor)
+    const newWidth = Math.floor(this.width * this.scaleFactor)
 
-  if (typeof scaleFactor !== 'number' || Number.isNaN(scaleFactor) || scaleFactor <= 0 || scaleFactor > 1) {
-    throw new Error('The scale factor must be a decimal between 0 and/equal to 1')
-  }
-
-  const newHeight = Math.floor(height * scaleFactor)
-  const newWidth = Math.floor(width * scaleFactor)
-
-  return {
-    height: newHeight,
-    width: newWidth,
-    scaleFactor: Number(scaleFactor.toFixed(4))
+    return {
+      height: newHeight,
+      width: newWidth,
+      scaleFactor: Number(this.scaleFactor.toFixed(4))
+    }
   }
 }

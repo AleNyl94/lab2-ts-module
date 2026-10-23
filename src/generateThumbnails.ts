@@ -11,7 +11,7 @@ import { scale } from './scale'
  * @param size - The desired size of the thumbnail that the user wants.
  * @returns The new size of the picture along with the scale-factor.
  */
-export function generateThumbnails({ height, width, size }: GenerateThumbnailsType): 
+export class generateThumbnails({ height, width, size }: GenerateThumbnailsType): 
 GenerateThumbnailsResult {
   if( height <= 0 || width <= 0) {
     throw new Error('Dimensions must be positive')
