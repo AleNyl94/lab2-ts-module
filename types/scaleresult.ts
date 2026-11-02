@@ -1,5 +1,6 @@
+import { ImageItem } from "./imageitem"
+
 export interface ScaleResult {
-  height: number,
-  width: number,
+  image: ImageItem,
   scaleFactor: number
 }

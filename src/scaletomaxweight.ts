@@ -1,66 +1,60 @@
-import { ScaleToMaxWeightTypes } from '../types/scaletomaxweighttypes'
-import { ScaleToMaxWeightResult } from '../types/scaletomaxweightresult'
-import { scale } from './scale'
-import { weight } from './weight'
+import { Scale } from './scale'
+import { Weight } from './weight'
 import { Validator } from './functions/validation'
+import { ImageItem } from '../types/imageitem'
+import { ScaleToMaxWeightResult } from '../types/scaletomaxweightresult'
 
 /**
  * Scales a picture down to below the size-limit.
  *
- * @param width - The current width of the picture.
- * @param height - The current height of the picture. 
+ * @param image - image to be scaled. 
  * @param maxMegaBytes - The limit of maximal size in megabytes.
  * @param bytesPerPixel - How many bytes per pixel the picture has depending on it's format.
  * @returns The pictures new size, measurements and scale-factor.
  */
-export class scaleToMaxWeight { 
-  private width: number
-  private height: number
+export class ScaleToMaxWeight { 
+  private image : ImageItem
   private maxMegaBytes: number
-  private bytesPerPixel: number
   private validator: Validator
 
-  constructor(width: number, height: number, maxMegaBytes: number, bytesPerPixel: number) {
+  constructor(image: ImageItem, maxMegaBytes: number) {
     this.validator = new Validator
-    this.validator.validateHeight(height)
-    this.validator.validateWidth(width)
+    this.validator.validateImage(image)
     this.validator.validateMaxMegaBytes(maxMegaBytes)
-    this.validator.validateBytesPerPixel(bytesPerPixel)
-    this.width = width
-    this.height = height
+    this.image = image
     this.maxMegaBytes = maxMegaBytes
-    this.bytesPerPixel = bytesPerPixel
   }
 
-  public run() {
-    const currentWeight = new weight(this.height, this.width, this.bytesPerPixel)
+  public run(): ScaleToMaxWeightResult {
+    const currentWeight = new Weight(this.image).run()
 
-
-  if (currentWeight.megabytes <= maxMegaBytes) {
-    return {
-      this.width,
-      this.height,
-      scaleFactor: 1.0,
-      megaBytes: currentWeight.megabytes
+    if (currentWeight.megabytes <= this.maxMegaBytes) {
+      return {
+      image: {
+        width: this.image.width,
+        height: this.image.height,
+        bytesPerPixel: this.image.bytesPerPixel
+        },
+        scaleFactor: 1.0,
+        megaBytes: currentWeight.megabytes
+      }
     }
-  }
 
-  const currentWeightMegaBytes = currentWeight.megabytes
-  const relation = this.maxMegaBytes / currentWeightMegaBytes
-  const targetScaleFactor = Math.sqrt(relation)
+    const currentWeightMegaBytes = currentWeight.megabytes
+    const relation = this.maxMegaBytes / currentWeightMegaBytes
+    const targetScaleFactor = Math.sqrt(relation)
 
-  const scaledImage = new scale( this.width, this.height, targetScaleFactor )
-  const scaledImageWeight = weight({
-    height: scaledImage.height,
-    width: scaledImage.width,
-    bytesPerPixel
-  })
+    const scaledImage = new Scale( this.image, targetScaleFactor ).run()
+    const scaledImageWeight = new Weight( scaledImage.image ).run()
 
-  return {
-    height: scaledImage.height,
-    width: scaledImage.width,
-    megaBytes: scaledImageWeight.megabytes,
-    scaleFactor: scaledImage.scaleFactor
-  }
+    return {
+      image: {
+        height: scaledImage.image.height,
+        width: scaledImage.image.width,
+        bytesPerPixel: scaledImage.image.bytesPerPixel
+      },
+      megaBytes: scaledImageWeight.megabytes,
+      scaleFactor: scaledImage.scaleFactor
+    }
   }
 }

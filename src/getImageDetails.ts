@@ -1,5 +1,6 @@
 import { GetImageDetailsResult } from "../types/getimagedetailsresult"
-import { GetImageDetailsType } from "../types/getimagedetailstype"
+import { ImageItem } from "../types/imageitem"
+import { Validator } from "./functions/validation"
 import { greatestCommonDivisor } from "./greatestcommondivisor"
 
 /**
@@ -12,32 +13,40 @@ import { greatestCommonDivisor } from "./greatestcommondivisor"
  * @returns The details of the picture, if it fits any ratio, if it has high DPI and the 
  * measurements in centimeters.
  */
-export function getImageDetails({ width, height, targetDpi }: 
-  GetImageDetailsType):
-  GetImageDetailsResult {
-  if (width <= 0 || height <= 0 || targetDpi <= 0) {
-    throw new Error('Invalid dimensions or DPI')
+export class GetImageDetails {
+  private image : ImageItem
+  private targetDpi : number
+  private validator : Validator
+
+  constructor(image : ImageItem, targetDpi: number) {
+    this.validator = new Validator
+    this.validator.validateImage(image)
+    this.image = image
+    this.targetDpi = targetDpi
   }
-  const commonDivisor = greatestCommonDivisor( width, height )
-  const formatCheckWidth = width / commonDivisor
-  const formatCheckHeight = height / commonDivisor
   
-  const ratioString = `${formatCheckWidth}:${formatCheckHeight}`
-  const aspectDecimal = Number((width / height).toFixed(2))
-  const highDpi = width >= 1920
+  public run(): GetImageDetailsResult {
+    const commonDivisor = greatestCommonDivisor( this.image.width, this.image.height )
+    const formatCheckWidth = this.image.width / commonDivisor
+    const formatCheckHeight = this.image.height / commonDivisor
+    
+    const ratioString = `${formatCheckWidth}:${formatCheckHeight}`
+    const aspectDecimal = Number((this.image.width / this.image.height).toFixed(2))
+    const highDpi = this.image.width >= 1920
 
-  const heightInCm = Number(((height / targetDpi) * 2.54).toFixed(2))
-  const widthInCm = Number(((width / targetDpi) * 2.54).toFixed(2))
+    const heightInCm = Number(((this.image.height / this.targetDpi) * 2.54).toFixed(2))
+    const widthInCm = Number(((this.image.width / this.targetDpi) * 2.54).toFixed(2))
 
-  return {
-    aspectRatio: {
-      ratio: ratioString,
-      decimal: aspectDecimal
-    },
-    highDpi,
-    printSizeCm: {
-      height: heightInCm,
-      width: widthInCm
+    return {
+      aspectRatio: {
+        ratio: ratioString,
+        decimal: aspectDecimal
+      },
+      highDpi,
+      printSizeCm: {
+        height: heightInCm,
+        width: widthInCm
+      }
     }
   }
 }

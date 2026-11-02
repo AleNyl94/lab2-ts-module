@@ -1,4 +1,5 @@
+import { ImageItem } from "./imageitem";
+
 export interface GenerateThumbnailsResult {
-  width: number,
-  height: number
+  image: ImageItem
 }

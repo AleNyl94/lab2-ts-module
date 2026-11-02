@@ -1,16 +1,24 @@
 import { describe, it, expect } from 'vitest'
-import { weight } from '../src/weight'
+import { Weight } from '../src/weight'
+import { ImageItem } from '../types/imageitem'
 
-/*
- * Test for the weight-function. Tests both valid and invalid input.
- * 
- */
-describe('weight', () => {
-  it('Should return the size in memory of the picture, in 3 different formats', () => {
-    const result = weight({ width: 1024, height: 1024, bytesPerPixel: 4})
-    expect(result).toEqual({ bytes: 4194304, kilobytes: 4096, megabytes: 4 })
+describe('Weight', () => {
+  it('should calculate memory size in bytes, kilobytes, and megabytes', () => {
+    const image: ImageItem = { width: 1024, height: 1024, bytesPerPixel: 4 }
+    const weightCalculator = new Weight(image)
+
+    const result = weightCalculator.run()
+
+    expect(result).toEqual({
+      bytes: 4194304,
+      kilobytes: 4096,
+      megabytes: 4
+    })
   })
-  it('Should throw an error if measurements are invalid', () => {
-  expect(() => weight({ width: -1024, height: 1024, bytesPerPixel: 4 })).toThrow()
+
+  it('should throw an error when dimensions are negative', () => {
+    const invalidImage: ImageItem = { width: -1024, height: 1024, bytesPerPixel: 4 }
+
+    expect(() => new Weight(invalidImage)).toThrow('Measurements must be positive')
   })
 })

@@ -1,22 +1,44 @@
 import { describe, it, expect } from 'vitest'
-import { generateThumbnails } from '../src/generateThumbnails'
+import { GenerateThumbnails } from '../src/generateThumbnails'
+import { ImageItem } from '../types/imageitem'
 
-/**
- * Test for the generateThumbnails-function testing valid and invalid input. 
- */
-describe('Generating thumbnails', () => {
-  it('Should return the picture with chosen size and correct measurements ', () => {
-    const smallPicture = generateThumbnails({ height: 333, width: 555, size: 'small'})
-    expect(smallPicture).toEqual({ height: 90, width: 150 })
-    const mediumPicture = generateThumbnails({ height: 333, width: 555, size: 'medium' })
-    expect(mediumPicture).toEqual({ height: 180, width: 300 })
-    const largePicture = generateThumbnails({ height: 1000, width: 1000, size: 'large' })
-    expect(largePicture).toEqual({ height: 600, width: 600 })
+describe('GenerateThumbnails', () => {
+  const rectangularImage: ImageItem = { width: 555, height: 333, bytesPerPixel: 4 }
+  const squareImage: ImageItem = { width: 1000, height: 1000, bytesPerPixel: 4 }
+
+  it('should generate small thumbnail dimensions', () => {
+    const generator = new GenerateThumbnails(rectangularImage, 'small')
+
+    const result = generator.run()
+
+    expect(result.image).toEqual({ width: 150, height: 90, bytesPerPixel: 4 })
   })
-  it('Should throw an error because of unknown size', () => {
-    expect(() => generateThumbnails({ height: 200, width: 200, size: 'mega-big' as unknown as Parameters<typeof generateThumbnails>[0]['size'] })).toThrow('Size not allowed')
+
+  it('should generate medium thumbnail dimensions', () => {
+    const generator = new GenerateThumbnails(rectangularImage, 'medium')
+
+    const result = generator.run()
+
+    expect(result.image).toEqual({ width: 300, height: 180, bytesPerPixel: 4 })
   })
-  it('Should throw an error because of invalid dimensions', () => {
-    expect(() => generateThumbnails({ height: -1, width: -1, size: 'small'})).toThrow('Dimensions must be positive')
+
+  it('should generate large thumbnail dimensions', () => {
+    const generator = new GenerateThumbnails(squareImage, 'large')
+
+    const result = generator.run()
+
+    expect(result.image).toEqual({ width: 600, height: 600, bytesPerPixel: 4 })
+  })
+
+  it('should throw an error when given an unsupported thumbnail size', () => {
+    const invalidSize = 'mega-big' as unknown as 'small' | 'medium' | 'large'
+
+    expect(() => new GenerateThumbnails(squareImage, invalidSize)).toThrow('Size not allowed')
+  })
+
+  it('should throw an error when image dimensions are negative', () => {
+    const invalidImage: ImageItem = { width: -1, height: -1, bytesPerPixel: 4 }
+
+    expect(() => new GenerateThumbnails(invalidImage, 'small')).toThrow('Measurements must be positive')
   })
 })

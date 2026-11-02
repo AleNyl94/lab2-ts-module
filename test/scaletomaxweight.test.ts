@@ -1,18 +1,39 @@
 import { describe, it, expect } from 'vitest'
-import { scaleToMaxWeight } from '../src/scaletomaxweight'
+import { ScaleToMaxWeight } from '../src/scaletomaxweight'
+import { ImageItem } from '../types/imageitem'
 
-/**
- * Tests the scaleToMaxWeight-function, that the image is scaled correctly to under the size-limit
- * and that the if-statement throws an error.
- */
-describe('Should scale the image down to close to wanted weight, never over', () => {
-  it('Should scale down the picture to below the desired limit', () => {
-    const result = scaleToMaxWeight({ width: 1000, height: 1000, maxMegaBytes: 2, bytesPerPixel: 4 })
-    expect(result.megaBytes).toBeLessThanOrEqual(2)
-    expect(result.width).toBeLessThan(1000)
-    expect(result.height).toBeLessThan(1000)
+describe('ScaleToMaxWeight', () => {
+  const heavyImage: ImageItem = {
+    width: 1000,
+    height: 1000,
+    bytesPerPixel: 4
+  }
+
+  it('should scale down image dimensions so memory weight does not exceed max megabytes', () => {
+    const maxMegaBytes = 2
+    const scaler = new ScaleToMaxWeight(heavyImage, maxMegaBytes)
+
+    const result = scaler.run()
+
+    expect(result.megaBytes).toBeLessThanOrEqual(maxMegaBytes)
+    expect(result.image.width).toBeLessThan(heavyImage.width)
+    expect(result.image.height).toBeLessThan(heavyImage.height)
+    expect(result.scaleFactor).toBeLessThan(1)
   })
-  it('Should throw an error if measurements are 0 or less', () => {
-    expect(() => scaleToMaxWeight({ width: -1, height: 0, maxMegaBytes: 0 })).toThrow('Measurements must be positive')
+
+  it('should return unmodified image with scaleFactor 1.0 when already below max weight', () => {
+    const generousMaxMegaBytes = 10
+    const scaler = new ScaleToMaxWeight(heavyImage, generousMaxMegaBytes)
+
+    const result = scaler.run()
+
+    expect(result.image).toEqual(heavyImage)
+    expect(result.scaleFactor).toBe(1.0)
+  })
+
+  it('should throw an error when image dimensions or max megabytes are zero or negative', () => {
+    const invalidImage: ImageItem = { width: -1, height: 0, bytesPerPixel: 4 }
+
+    expect(() => new ScaleToMaxWeight(invalidImage, 0)).toThrow('Measurements must be positive')
   })
 })

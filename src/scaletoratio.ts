@@ -1,51 +1,74 @@
 import { ScaleToRatioResult } from "../types/scaletoratioresult"
-import { ScaleToRatioTypes } from "../types/scaletoratiotypes"
+import { Validator } from './functions/validation'
+import { ImageItem } from '../types/imageitem'
+
+interface AspectRatio {
+  width: number
+  height: number
+}
 
 /**
  * Scales a picture to fit a chosen ratio.
  *
- * @param height - The pictures current height.
- * @param width - The pictures current width.
+ * @param image - The image to be scaled.
  * @param aspectRatio { height, width } - The desired ratio.
- * @returns The new measurements and the scale-factor.
+ * @returns The image's new m and the scale-factor.
  */
-export function scaleToRatio({ 
-  height, 
-  width, 
-  aspectRatio: 
-  { height: ratioHeight, 
-    width: ratioWidth 
-    } 
-  }: 
-  ScaleToRatioTypes) : ScaleToRatioResult {
-  if (width <= 0 || height <= 0 || ratioHeight <= 0 || ratioWidth <= 0) {
-    throw new Error('Measurements must be positive')
-  }
-  const currentRatio = height / width
-  const targetRatio =  ratioWidth / ratioHeight
+export class ScaleToRatio {
+  private image: ImageItem
+  private aspectRatio: AspectRatio
+  private validator: Validator
 
-  // Bilden är för hög
-  if (currentRatio < targetRatio) {
-    const newHeight = Math.floor(width / targetRatio)
-    return {
-      height: newHeight,
-      width,
-      aspectRatio: Number(targetRatio.toFixed(2))
-    } 
+  constructor( image: ImageItem, aspectRatio: AspectRatio) {
+    this.validator = new Validator
+    this.validator.validateImage(image)
+    this.validator.validateDimensions(aspectRatio)
+    this.image = image
+    this.aspectRatio = aspectRatio
   }
-  // Bilden är för smal
-  if (targetRatio < currentRatio) {
-    const newWidth = Math.floor(height * targetRatio)
+
+  public run(): ScaleToRatioResult { 
+    const currentRatio = this.image.width / this.image.height
+    const targetRatio = this.aspectRatio.width / this.aspectRatio.height
+
+    const newDimensions = this.calculateNewDimensions(currentRatio, targetRatio)
+
     return {
-      height,
-      width: newWidth,
+      image: {
+        height: newDimensions.height,
+        width: newDimensions.width,
+        bytesPerPixel: this.image.bytesPerPixel
+      },
       aspectRatio: Number(targetRatio.toFixed(2))
     }
   }
-  // Ration är identiska
-  return {
-    height,
-    width,
-    aspectRatio: Number(targetRatio.toFixed(2))
+
+  private calculateNewDimensions(currentRatio: number, targetRatio: number) {
+    if (this.isImageTooTall(currentRatio, targetRatio)) {
+      return {
+        width: this.image.width,
+        height: Math.floor(this.image.width / targetRatio)
+      }
+    }
+
+    if (this.isImageTooWide(currentRatio, targetRatio)) {
+      return {
+        width: Math.floor(this.image.height * targetRatio),
+        height: this.image.height
+      }
+    }
+
+    return {
+      width: this.image.width,
+      height: this.image.height
+    }
+  }
+
+  private isImageTooTall(currentRatio: number, targetRatio: number): boolean {
+    return currentRatio < targetRatio
+  }
+
+  private isImageTooWide(currentRatio: number, targetRatio: number): boolean {
+    return currentRatio > targetRatio
   }
 }

@@ -1,5 +1,6 @@
+import { ImageItem } from './imageitem'
+
 export interface ScaleToRatioResult {
-  height: number,
-  width: number,
+  image: ImageItem,
   aspectRatio: number,
 }

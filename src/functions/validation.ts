@@ -1,21 +1,26 @@
+import { ImageItem } from '../../types/imageitem'
+import type { ThumbnailSizes } from '../../types/thumbnailsize';
 export class Validator {
-    public validateHeight(height: number) {
-    if (typeof height !== 'number'|| Number.isNaN(height) || height <= 0) {
-      throw new Error('Height must be a positive number')
+
+  public validateImage(image: ImageItem): void {
+    this.validateDimensions(image)
+    this.validateBytesPerPixel(image.bytesPerPixel)
+  }
+
+  public validateDimensions(dimensions: { width: number; height: number }): void {
+    this.validateMeasurement(dimensions.width)
+    this.validateMeasurement(dimensions.height)
+  }
+
+  public validateMeasurement(measurement: number): void {
+    if (measurement <= 0 || Number.isNaN(measurement)) {
+      throw new Error('Measurements must be positive')
     }
   }
 
-  public validateWidth(width: number) {
-    if (typeof width !== 'number' || Number.isNaN(width) || width <= 0) {
-      throw new Error('Width must be a positive number')
-    }
-  }
-
-  private readonly allowedBytes = [ 1, 3, 4 ]
-
-  public validateBytesPerPixel(bytesPerPixel: number) {
-    if (!this.allowedBytes.includes(bytesPerPixel)) {
-      throw new Error('Bytes must equal 1 , 3 or 4')
+  public validateBytesPerPixel(bytesPerPixel: number): void {
+    if (![1, 3, 4].includes(bytesPerPixel)) {
+      throw new Error('Bytes per pixel must be 1, 3, or 4')
     }
   }
 
@@ -37,6 +42,19 @@ export class Validator {
     }
     if (!scaleFactor) {
       scaleFactor = 0.25;
+    }
+  }
+
+  public validateArray(array: unknown[]) {
+    if (!array || array.length < 1 || !Array.isArray(array)) {
+      throw new Error('Array cannot be empty')
+    }
+  }
+
+  public validateSize(size: string): void {
+    const validSizes: ThumbnailSizes[] = ['small', 'medium', 'large']
+    if (!validSizes.includes(size as ThumbnailSizes)) {
+      throw new Error('Size not allowed')
     }
   }
 }

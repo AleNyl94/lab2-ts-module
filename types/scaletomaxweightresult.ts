@@ -1,6 +1,7 @@
+import { ImageItem } from './imageitem'
+
 export interface ScaleToMaxWeightResult {
-  height: number,
-  width: number,
-  megaBytes: number,
-  scaleFactor: number
+  image: ImageItem,
+  scaleFactor: number,
+  megaBytes: number
 }
