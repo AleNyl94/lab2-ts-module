@@ -7,18 +7,24 @@ that someone else could carry out the same tests.*
 
 Answer:
 
-Tests are run on command `npm test`.
-I used vitest for automatic test-code, to have a clearer overview of the modules functions output, and that it is correct according to the primary goals. I also made test according to invalid input so it will handle that and throw an error when it is expected to.
+Tests are executed using the command `npm test`.
+I used **Vitest** for automated unit testing to verify that all classes in the module instantiate properly, return accurate domain results via `.run()`, and enforce strict boundary validation through the centralized `Validator` class.
 
-Test-files are found in [test-folder](./test/) for following functions:
-- scale
-- scaleBatch
-- generateThumbnail
-- getImageDetails
-- greatestCommonDivisor
-- scaleToMaxWeight
-- scaleToRatio
-- weight
+All tests are structured according to Clean Code testing guidelines:
+- **AAA Pattern (Arrange, Act, Assert / Build-Operate-Check):** Clear separation between test data setup, method execution, and assertion.
+- **Single Concept per Test:** Each `it()` block verifies one distinct behavior or edge case (such as separate tests for `small`, `medium`, and `large` thumbnail profiles, and separate tests for constructor validation errors).
+- **F.I.R.S.T. Principles:** All unit tests are fast, independent, repeatable, and self-validating.
+
+Test files are located in the [`./test/`](./test/) folder for the following classes:
+- `Scale`
+- `ScaleBatch`
+- `GenerateThumbnails`
+- `GetImageDetails`
+- `GreatestCommonDivisor`
+- `ScaleToMaxWeight`
+- `ScaleToRatio`
+- `Weight`
+- `Validator` (tested implicitly across all class constructors)
 
 ## Test Results
 
@@ -26,21 +32,20 @@ Test-files are found in [test-folder](./test/) for following functions:
 
 | What was tested | How it was tested | Result |
 | ---------------- | ------------------ | ------- |
-|         [Scale](./src/scale.ts), scaling down the image dimensions to 25% if no scaleFactor is given.          |          [Vitest](./test/scale.test.ts)      |    Passed ✅     |
-|      [Scale](./src/scale.ts), throws an error  if the measurements are invalid.           |          [Vitest](./test/scale.test.ts)            |    Passed ✅       |
-|         [Weight](./src/weight.ts), calculating the size according to the measurements.       |      [Vitest](./test/weight.test.ts)             |    Passed ✅     |
-|        [Weight](./src/weight.ts), throws an error  if the measurements are invalid.          |          [Vitest](./test/weight.test.ts)          |     Passed ✅     |
-|      [Scale Batch](./src/scalebatch.ts), tests the output containing the correct information, images scaled down and how much memory is saved in total.           |        [Vitest](./test/scalebatch.test.ts)      |      Passed ✅  |
-|       [Scale Batch](./src/scalebatch.ts), throws an error if the images-array is empty.           |        [Vitest](./test/scalebatch.test.ts)              |   Passed ✅       |
-|        [Generate Thumbnails](./src/generatethumbnails.ts), generates the pictures with correct sizes depending on the choices of size.           |          [Vitest](./test/generatethumbnails.test.ts)           |     Passed ✅    |
-|     [Generate Thumbnails](./src/generatethumbnails.ts), throws error if the size chosen is not valid              |       [Vitest](./test/generatethumbnails.test.ts)             |   Passed ✅      |
-|    [Generate Thumbnails](./src/generatethumbnails.ts), throws error if measurements is invalid               |        [Vitest](./test/generatethumbnails.test.ts)             |   Passed ✅      |
-|       [Get Image Details](./src/getimagedetails.ts), should return the correct details based off the measurements.            |     [Vitest](./test/getimagedetails.test.ts)               |    Passed ✅      |
-|      [Get Image Details](./src/getimagedetails.ts), should throw an error of the measurements are invalid.            |       [Vitest](./test/getimagedetails.test.ts)              |    Passed ✅     |
-|        [Greatest Common Divisor](./src/greatestcommondivisor.ts), sends back the greatest common divisor between two numbers.           |    [Vitest](./test/greatestcommondivisor.test.ts)                 |      Passed ✅   |
-|         [Greatest Common Divisor](./src/greatestcommondivisor.ts), throws error of the parameters are negative numbers.          |       [Vitest](./test/greatestcommondivisor.test.ts)              |  Passed ✅        |
-|     [Greatest Common Divisor](./src/greatestcommondivisor.ts), sends back the first number if the second one is 0.              |        [Vitest](./test/greatestcommondivisor.test.ts)            |   Passed ✅        |
-|     [Scale To Ratio](./src/scaletoratio.ts), sends the expected outdata based off the measurements and targeted ratio.             |           [Vitest](./test/scaletoratio.test.ts)         |   Passed ✅   
-|    [Scale To Ratio](./src/scaletoratio.ts), throws error if parameters are empty               |           [Vitest](./test/scaletoratio.test.ts)           |   Passed ✅       |
-|     [Scale To Max Weight](./src/scaletomaxweight.ts), scaling down the picture under the desired max size.              |       [Vitest](./test/scaletomaxweight.test.ts)             |   Passed ✅       |
-|      [Scale To Max Weight](./src/scaletomaxweight.ts), throws error if measurements are 0 or less.             |        [Vitest](./test/scaletomaxweight.test.ts)            |    Passed ✅     |
+| [`Scale`](./src/scale.ts) – scales down `ImageItem` dimensions to 25% by default when no `scaleFactor` is provided, and scales accurately for custom scale factors. | [Vitest](./test/scale.test.ts) | Passed ✅ |
+| [`Scale`](./src/scale.ts) – throws validation error in constructor if `ImageItem` dimensions or `scaleFactor` are invalid (0, negative, or `NaN`). | [Vitest](./test/scale.test.ts) | Passed ✅ |
+| [`Weight`](./src/weight.ts) – calculates accurate memory size in bytes, kilobytes, and megabytes based on `ImageItem` dimensions and `bytesPerPixel`. | [Vitest](./test/weight.test.ts) | Passed ✅ |
+| [`Weight`](./src/weight.ts) – throws validation error in constructor if `ImageItem` dimensions are invalid. | [Vitest](./test/weight.test.ts) | Passed ✅ |
+| [`ScaleBatch`](./src/scalebatch.ts) – scales all images in a batch below the target weight and accurately calculates total saved memory (`11.49 MB`) while preserving each image's `bytesPerPixel`. | [Vitest](./test/scalebatch.test.ts) | Passed ✅ |
+| [`ScaleBatch`](./src/scalebatch.ts) – throws validation error if the `images` array is empty or if `targetWeight` is invalid. | [Vitest](./test/scalebatch.test.ts) | Passed ✅ |
+| [`GenerateThumbnails`](./src/generatethumbnails.ts) – generates accurate thumbnail dimensions tested individually for `'small'`, `'medium'`, and `'large'` profiles. | [Vitest](./test/generatethumbnails.test.ts) | Passed ✅ |
+| [`GenerateThumbnails`](./src/generatethumbnails.ts) – throws validation error if the chosen size profile or `ImageItem` dimensions are invalid. | [Vitest](./test/generatethumbnails.test.ts) | Passed ✅ |
+| [`GetImageDetails`](./src/getimagedetails.ts) – returns accurate aspect ratio, print dimensions in cm, memory weight, and HighDPI status from an `ImageItem`. | [Vitest](./test/getimagedetails.test.ts) | Passed ✅ |
+| [`GetImageDetails`](./src/getimagedetails.ts) – throws validation error if `ImageItem` dimensions or `targetDpi` are invalid. | [Vitest](./test/getimagedetails.test.ts) | Passed ✅ |
+| [`GreatestCommonDivisor`](./src/greatestcommondivisor.ts) – calculates the greatest common divisor between two positive integers. | [Vitest](./test/greatestcommondivisor.test.ts) | Passed ✅ |
+| [`GreatestCommonDivisor`](./src/greatestcommondivisor.ts) – throws validation error if parameters are negative or invalid. | [Vitest](./test/greatestcommondivisor.test.ts) | Passed ✅ |
+| [`GreatestCommonDivisor`](./src/greatestcommondivisor.ts) – returns the first number when the second parameter is `0`. | [Vitest](./test/greatestcommondivisor.test.ts) | Passed ✅ |
+| [`ScaleToRatio`](./src/scaletoratio.ts) – adjusts `ImageItem` dimensions accurately when the image is too wide or too tall for the target aspect ratio. | [Vitest](./test/scaletoratio.test.ts) | Passed ✅ |
+| [`ScaleToRatio`](./src/scaletoratio.ts) – throws validation error if `ImageItem` or `aspectRatio` dimensions are invalid. | [Vitest](./test/scaletoratio.test.ts) | Passed ✅ |
+| [`ScaleToMaxWeight`](./src/scaletomaxweight.ts) – scales down `ImageItem` dimensions until the memory size is below `maxMegaBytes`, or leaves dimensions unchanged if already below the limit. | [Vitest](./test/scaletomaxweight.test.ts) | Passed ✅ |
+| [`ScaleToMaxWeight`](./src/scaletomaxweight.ts) – throws validation error if `ImageItem` dimensions or `maxMegaBytes` are `0` or less. | [Vitest](./test/scaletomaxweight.test.ts) | Passed ✅ |

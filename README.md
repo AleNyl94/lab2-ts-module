@@ -1,77 +1,84 @@
 # Image Processing Module
 
-A TypeScript utility library for scaling, resizing, and calculating metadata for images.
+An object-oriented TypeScript library for scaling, resizing, and calculating memory weight and metadata for images. Built according to Clean Code principles with strict domain types and centralized input validation.
 
 ## Installation
 
-```bash
-git clone <repository-url>
-cd <repository-name>
-npm install
-```
+  ```bash
+  git clone <repository-url>
+  cd <repository-name>
+  npm install
+  ```
+
+## Core Domain Type (ImageItem)
+  All image-processing classes operate on the core data structure ImageItem:
+  ```typescript
+    interface ImageItem {
+      width: number
+      height: number
+      bytesPerPixel: 1 | 3 | 4 // 1 = Grayscale, 3 = RGB (JPEG), 4 = RGBA (PNG/WebP)
+    }
+  ```
 
 ## Usage & API
-- greatestCommonDivisor(a, b)
+  All classes validate their arguments on instantiation via the internal Validator class and execute their operation via the .run() method.
 
-Calculates the greatest common divisor between two numbers.
+  - new GreatestCommonDivisor(a, b).run()
+Calculates the greatest common divisor between two positive numbers.
 
-- generateThumbnails({ height, width, size })
+  - new GenerateThumbnails(image, size).run()
+  Generates scaled thumbnail dimensions based on predefined size profiles ('small', 'medium', 'large').
 
-Generates scaled thumbnail dimensions based on predefined size profiles (small, medium, large).
+  - new GetImageDetails(image, targetDpi?).run()
+  Calculates image metadata such as aspect ratio, print size in cm, megabytes, and HighDPI flags.
 
-- getImageDetails({ height, width, targetDpi })
+  - new Scale(image, scaleFactor?).run()
+  Scales an ImageItem proportionally. If no scaleFactor is provided, it defaults to 0.25 (25%).
 
-Calculates image metadata such as aspect ratio, print size in cm, and HighDPI flags.
+  - new ScaleBatch(images, targetWeight).run()
+  Scales down an array of ImageItem objects below a target weight in megabytes. Returns the scaled images and total saved memory in MB.
 
-- scale({ height, width, scaleFactor? })
+  - new ScaleToMaxWeight(image, maxMegaBytes).run()
+  Scales down an ImageItem proportionally until its memory weight is at or below maxMegaBytes.
 
-Scales the image down without breaking its proportions. If no scaleFactor is given, it scales it down by 1/4.
+  - new ScaleToRatio(image, aspectRatio).run()
+  Crops/scales an ImageItem to fit a target aspect ratio ({ width, height }, e.g., { width: 16, height: 9 }).
 
-- scaleBatch({ targetWeight, images })
+  - new Weight(image).run()
+  Calculates the raw memory weight of an ImageItem. Returns the size in bytes, kiloBytes, and megaBytes.
 
-Scales down an array of images to save memory. Returns the scaled images and how much memory is saved in a megabyte format.
+## Usage Example
 
-- scaleToMaxWeight({ width, height, maxMegaBytes, bytesPerPixel = 4 })
+  Here is a practical example of how to import and use the classes in your code:
 
-Scales down a picture to a desired size. If no bytesPerPixel is given, it is automatically set to 4.
+  ``` typescript
+  import { Weight, Scale, ScaleToRatio, type ImageItem } from './index.js'
 
-- scaleToRatio({ height, width, aspectRatio: { height: ratioHeight, width: ratioWidth } })
+  const image: ImageItem = {
+    width: 1920,
+    height: 1080,
+    bytesPerPixel: 4
+  }
 
-Scales a picture to a given ratio (for example 16:9) to fit the target format.
+  // 1. Calculate the memory weight of an image (1920x1080, RGBA)
+  const imgWeight = new Weight(image).run()
+  console.log(`Image size: ${imgWeight.megaBytes} MB (${imgWeight.kiloBytes} KB)`)
 
-- weight({ height, width, bytesPerPixel = 4 })
+  // 2. Scale an image down proportionally (e.g., to 50%)
+  const scaledResult = new Scale(image, 0.5).run()
+  console.log('Scaled image:', scaledResult.image)
 
-Calculates the weight of a picture based on its dimensions. Returns the size of the picture in bytes, kilobytes, and megabytes.
-
-### Usage Example
-Here is a practical example of how to import and use the utility functions in your code:
-
-```typescript
-import { weight, scale, scaleToRatio } from './index.js'
-
-// 1. Calculate the memory weight of an image (e.g., 1920x1080)
-const imgWeight = weight({ height: 1080, width: 1920 })
-console.log(`Image size: ${imgWeight.megaBytes} MB (${imgWeight.kiloBytes} KB)`)
-
-// 2. Scale an image down proportionally (e.g., to 50%)
-const scaledDimensions = scale({ height: 1080, width: 1920, scaleFactor: 0.5 })
-console.log('Scaled dimensions:', scaledDimensions)
-
-// 3. Adjust an image to fit a 16:9 aspect ratio
-const aspectScaled = scaleToRatio({
-  height: 1200,
-  width: 1920,
-  aspectRatio: { height: 9, width: 16 }
-})
-console.log('Aspect-adjusted dimensions:', aspectScaled)
-```
+  // 3. Adjust an image to fit a 1:1 square aspect ratio
+  const aspectScaled = new ScaleToRatio(image, { width: 1, height: 1 }).run()
+  console.log('Aspect-adjusted image:', aspectScaled.image)
+  ```
 
 ## Testing
-Run unit tests for the module with the command:
-
-```bash
-npm test
-```
+  In the root folder of the module just type in the terminal:
+  ```bash
+  npm test
+  ```
 
 ## Documentation Links
-[Test Reports](./TEST_REPORT.md)
+  [Test Report](./TEST_REPORT.md)
+
